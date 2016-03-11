@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Filter Test</title>
+
+    <!--<script src="http://cdn.bootcss.com/angular.js/1.5.0/angular.js"/>-->
+    <!--<script src="http://cdn.bootcss.com/angular.js/1.5.0/angular-route.js"/>-->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.js"></script>
+    <script type='text/javascript'>
+        var filterExample = angular.module('example',['ngRoute']);
+
+        filterExample.filter('removeSpacesThenLowercase', function () {
+            return function (text) {
+                var str = text.replace(/\s+/g, '');
+                return str.toLowerCase();
+            };
+        })
+        filterExample.filter('replaceSlash2Underscore', function () {
+            return function (text) {
+                var str = text.replace('/', '_');
+                return str.toLowerCase();
+            };
+        })
+        filterExample.controller( 'Ctrl',function($scope) {
+            $scope.names = ['Santi Carzola','Theo Walcott','Oliver Giroud','Jack Wilshere',"公司/名称"]
+        })
+    </script>
+</head>
+<body>
+<div ng-app="example">
+    <div ng-controller="Ctrl">
+        <p ng-repeat="name in names">{{name}} = {{name | removeSpacesThenLowercase}}</p>
+        <p ng-repeat="name in names">{{name}} = {{name | replaceSlash2Underscore}}</p>
+    </div>
+</div>
+</body>
+</html>
